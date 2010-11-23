@@ -23,8 +23,8 @@ To build the project’s code you will need :
 
 Open a terminal and give:
 
-    git clone git://github.com/cyberpython/bmach.git
-    cd bmach
+    git clone git://github.com/cyberpython/BMach.git
+    cd BMach
     ant clean jar
 
 ##How to run the application
