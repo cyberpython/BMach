@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.KeyStroke;
@@ -53,7 +54,7 @@ public class JBMachAppFrame extends javax.swing.JFrame{
     private BMachPanel bMachPanel1;
 
     /** Creates new form JBMachAppFrame */
-    public JBMachAppFrame(){
+    public JBMachAppFrame(String pathname){
         initComponents();
         this.setIconImage(new ImageIcon(JBMachAppFrame.class.getResource("resources/icon.png")).getImage());
         bMachPanel1 = new BMachPanel();
@@ -110,6 +111,12 @@ public class JBMachAppFrame extends javax.swing.JFrame{
         });
 
         bMachPanel1.addFileDropSupport();
+        if(pathname!=null){
+            File f = new File(pathname);
+            if(f.exists()){
+                bMachPanel1.openDocument(f);
+            }
+        }
     }
 
     public void exit(){
@@ -174,7 +181,7 @@ public class JBMachAppFrame extends javax.swing.JFrame{
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JBMachAppFrame().setVisible(true);
+                new JBMachAppFrame(null).setVisible(true);
             }
         });
     }

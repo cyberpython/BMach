@@ -31,6 +31,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        final String[] arguments = args;
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
@@ -52,7 +53,11 @@ public class Main {
                         
                     }
                 }
-                JFrame frame = new JBMachAppFrame();
+                String pathName = null;
+                if(arguments.length>0){
+                    pathName = arguments[0];
+                }
+                JFrame frame = new JBMachAppFrame(pathName);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
