@@ -1,0 +1,42 @@
+#BMach
+
+A Brookshear Machine implementation in Java.
+
+##License
+
+Copyright (c) 2010 Georgios Migdos <cyberpython@gmail.com>
+
+Source code is available under the terms of the [Apache license v2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+All icons are part of the ["Silk" iconset](http://www.famfamfam.com/lab/icons/silk/) by [Mark James](http://www.famfamfam.com/about/), except for the application icon which has been created from scratch with Inkscape.
+
+[jSyntaxPane](http://code.google.com/p/jsyntaxpane/), an open-source JEditorKit that adds support for custom syntax-highlighting to JEditorPane, is used.
+
+FileDrop.java is public domain. Its original author is Robert Harder and Gnome/KDE support has been added by Nathan Blomquist.
+
+##Build instructions
+
+To build the project’s code you will need :
+
+- [JDK (6.x+)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- [Apache Ant](http://ant.apache.org/) (built-in in Netbeans)
+
+Open a terminal and give:
+
+    git clone git://github.com/cyberpython/bmach.git
+    cd bmach
+    ant clean jar
+
+##How to run the application
+
+To run the application you must have a JRE (6.x+) installed. Then you can give:
+
+    java -jar dist/bmach.jar
+
+Or simply double click on dist/bmach.jar
+    
+##Screenshots
+<a href="http://img130.imageshack.us/i/screenshot1bm.png">![Screenshot1][screenshot1]</a>
+[screenshot1]: http://img130.imageshack.us/img130/1589/screenshot1bm.th.png  "Screenshot of BMach running."
+
+
