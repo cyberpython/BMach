@@ -36,7 +36,8 @@ To run the application you must have a JRE (6.x+) installed. Then you can give:
 Or simply double click on dist/bmach.jar
     
 ##Screenshots
-<a href="http://img130.imageshack.us/i/screenshot1bm.png">![Screenshot1][screenshot1]</a>
-[screenshot1]: http://img130.imageshack.us/img130/1589/screenshot1bm.th.png  "Screenshot of BMach running."
+<a href="http://img690.imageshack.us/img690/7556/screenshotuq.png">![Screenshot1][screenshot1]</a>
+[screenshot1]: http://img690.imageshack.us/img690/7556/screenshotuq.th.png  "Screenshot of BMach running."
+
 
 

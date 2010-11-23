@@ -46,11 +46,10 @@ import jsyntaxpane.SyntaxView;
 import jsyntaxpane.actions.ActionUtils;
 import jsyntaxpane.actions.gui.GotoLineDialog;
 import jsyntaxpane.util.Configuration;
-import util.binary.bitpattern.BitPatternUtils;
 
 /**
  * This class will display line numbers for a related text component. The text
- * component must use the same line height for each line. 
+ * component must use the same line height for each line.
  *
  * This class was designed to be used as a component added to the row header
  * of a JScrollPane.
@@ -60,7 +59,7 @@ import util.binary.bitpattern.BitPatternUtils;
  * @author Rob Camick
  *
  * Revised for jsyntaxpane
- * 
+ *
  * @author Ayman Al-Sairafi
  */
 public class LineNumbersRuler extends JPanel
@@ -78,7 +77,7 @@ public class LineNumbersRuler extends JPanel
 	private final static int HEIGHT = Integer.MAX_VALUE - 1000000;
 	//  Text component this TextTextLineNumber component is in sync with
 	private JEditorPane editor;
-	private int minimumDisplayDigits = 4;
+	private int minimumDisplayDigits = 3;
 	//  Keep history information to reduce the number of times the component
 	//  needs to be repainted
 	private int lastDigits;
@@ -86,7 +85,7 @@ public class LineNumbersRuler extends JPanel
 	private int lastLine;
 	private MouseListener mouseListener = null;
 	// The formatting to use for displaying numbers.  Use in String.format(numbersFormat, line)
-	private String numbersFormat = "%4s";
+	private String numbersFormat = "%3d";
 
 	private Color currentLineColor;
 
@@ -184,7 +183,7 @@ public class LineNumbersRuler extends JPanel
 	private void setPreferredWidth() {
 		Element root = editor.getDocument().getDefaultRootElement();
 		int lines = ActionUtils.getLineCount(editor);
-		int digits = 4;//Math.min(String.valueOf(lines).length(), minimumDisplayDigits);
+		int digits = Math.min(String.valueOf(lines).length(), minimumDisplayDigits);
 
 		//  Update sizes when number of digits in the line number changes
 
@@ -233,9 +232,9 @@ public class LineNumbersRuler extends JPanel
 				g.setColor(currentLineColor);
 				g.fillRect(0, y - lh + fontMetrics.getDescent() - 1, getWidth(), lh);
 				g.setColor(getForeground());
-				g.drawString("0x"+BitPatternUtils.toHexString((line*2)-2, 2), insets.left, y);
+				g.drawString(lineNumber, insets.left, y);
 			} else {
-				g.drawString("0x"+BitPatternUtils.toHexString((line*2)-2, 2), insets.left, y);
+				g.drawString(lineNumber, insets.left, y);
 			}
 		}
 	}

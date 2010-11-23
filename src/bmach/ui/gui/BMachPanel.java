@@ -591,7 +591,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
                 machineThread = new Thread(machine);
                 machineThread.start();
             } catch (MalformedInstructionException mie) {
-                showError("BMach - Error", "Malformed instruction (line " + (mie.getLine() + 1) + "):", mie.getMessage());
+                showError("BMach - Error", "Malformed instruction (line " + mie.getLine() + "):", mie.getMessage());
                 enableOrDisableControls(false);
             }
 
