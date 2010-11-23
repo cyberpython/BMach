@@ -22,8 +22,10 @@
  */
 package bmach.ui.gui;
 
+import bmach.ui.gui.actions.BMachAction;
 import java.awt.Frame;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
@@ -31,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import javax.swing.JPopupMenu;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
@@ -39,6 +42,17 @@ import javax.swing.event.HyperlinkListener;
  * @author Georgios Migdos <cyberpython@gmail.com>
  */
 public class BMachHelpDialog extends javax.swing.JDialog {
+
+    private class CopyLogAction extends BMachAction {
+
+        public CopyLogAction() {
+            super("Copy", "Copy", null, null, "/bmach/ui/gui/resources/copy-to-clipboard.png");
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            jEditorPane1.copy();
+        }
+    }
 
     static BMachHelpDialog dlg;
     static{
@@ -56,6 +70,10 @@ public class BMachHelpDialog extends javax.swing.JDialog {
     private BMachHelpDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        JPopupMenu logPopUp = new JPopupMenu();
+        logPopUp.add(new CopyLogAction());
+        jEditorPane1.setComponentPopupMenu(logPopUp);
 
         StringBuilder sb = new StringBuilder();
         try{
