@@ -61,8 +61,8 @@ public class JAddressPanel extends JPanel {
 
         this.addressFont = new Font(null, Font.BOLD, 14);
 
-        this.arcw = 40;
-        this.arch = 40;
+        this.arcw = 30;
+        this.arch = 30;
 
         initComponents();
 
@@ -83,7 +83,7 @@ public class JAddressPanel extends JPanel {
         this.add(Box.createHorizontalStrut(10));
         this.add(addressLabel);
         this.add(Box.createHorizontalStrut(5));
-        this.setPreferredSize(new Dimension(50,40));
+        this.setPreferredSize(new Dimension(50,30));
     }
 
     @Override

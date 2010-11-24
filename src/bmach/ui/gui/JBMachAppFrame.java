@@ -78,9 +78,9 @@ public class JBMachAppFrame extends javax.swing.JFrame{
         jMenu4.add(bMachPanel1.getShowHelpAction());
         jMenu4.addSeparator();
         jMenu4.add(bMachPanel1.getShowAboutDialogAction());
-        //this.pack();
-        this.setPreferredSize(new Dimension(850, 650));
-        this.setSize(this.getPreferredSize());
+        this.pack();
+        //this.setPreferredSize(new Dimension(850, 650));
+        //this.setSize(this.getPreferredSize());
         this.setTitle("BMach - "+bMachPanel1.getCurrentDocTitle());
 
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -138,7 +138,6 @@ public class JBMachAppFrame extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -148,7 +147,6 @@ public class JBMachAppFrame extends javax.swing.JFrame{
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
-        jScrollPane1.setViewportView(jPanel1);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -165,11 +163,11 @@ public class JBMachAppFrame extends javax.swing.JFrame{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
         );
 
         pack();
@@ -192,7 +190,6 @@ public class JBMachAppFrame extends javax.swing.JFrame{
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
 }

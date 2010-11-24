@@ -59,8 +59,8 @@ public class JValuePanel extends JPanel {
 
         this.valueFont = new Font(null, Font.PLAIN, 12);
 
-        this.arcw = 40;
-        this.arch = 40;
+        this.arcw = 30;
+        this.arch = 30;
 
         initComponents();
 
