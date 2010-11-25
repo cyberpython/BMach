@@ -45,5 +45,9 @@ public interface IMachine extends Runnable, IObserver {
 
     public boolean getStepByStep();
 
+    public void setSleepTime(long sleepTime) ;
+
+    public long getSleepTime();
+
     public void nextStep();
 }

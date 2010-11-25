@@ -88,6 +88,7 @@ public class JBMachAppFrame extends javax.swing.JFrame{
         this.addWindowListener(new WindowListener() {
 
             public void windowOpened(WindowEvent e) {
+                bMachPanel1.setFocusOnEditor();
             }
 
             public void windowClosing(WindowEvent e) {

@@ -36,16 +36,7 @@ public class Main {
 
             public void run() {
                 try {
-                    /*if(System.getProperty("os.name").toLowerCase().contains("windows")){
-                        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                            if ("Nimbus".equals(info.getName())) {
-                                UIManager.setLookAndFeel(info.getClassName());
-                                break;
-                            }
-                        }
-                    }else{*/
                         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    //}
                 } catch (Exception e) {
                     try {
                         UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());

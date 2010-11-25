@@ -391,6 +391,10 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         return kit.getJMenu(jEditorPane1);
     }
 
+    public void setFocusOnEditor(){
+        jEditorPane1.requestFocusInWindow();
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Drag n Drop support">
     public void addFileDropSupport() {
         FileDrop fileDrop = new FileDrop(this.getTopLevelAncestor(), new FileDrop.Listener() {
@@ -535,19 +539,16 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
     }
 
     private void enableOrDisableControls(boolean machineRunning) {
+        stopAction.setEnabled(machineRunning);
+        executeAction.setEnabled(!machineRunning);
+        executeStepByStepAction.setEnabled(!machineRunning);
+        jSlider1.setEnabled(!machineRunning);
         if (machineRunning) {
-            stopAction.setEnabled(true);
-            executeAction.setEnabled(false);
-            executeStepByStepAction.setEnabled(false);
             executeStepByStepAction.setNameAndTooltip("Next step", "Next step");
-            jButton6.setText("");
         } else {
-            stopAction.setEnabled(false);
-            executeAction.setEnabled(true);
-            executeStepByStepAction.setEnabled(true);
             executeStepByStepAction.setNameAndTooltip("Execute step-by-step", "Execute step-by-step");
-            jButton6.setText("");
         }
+        jButton6.setText("");
     }
 
     public void notifyObserver(Object notificationData) {
@@ -584,6 +585,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         if (!machineThread.isAlive()) {
             enableOrDisableControls(true);
             machine.reset();
+            machine.setSleepTime( (100 - jSlider1.getValue()) * 10 );
             jTextArea2.setText("");
             machine.setStepByStep(stepByStep);
             try {
@@ -683,6 +685,8 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jSeparator11 = new javax.swing.JToolBar.Separator();
+        jSlider1 = new javax.swing.JSlider();
         jSeparator8 = new javax.swing.JToolBar.Separator();
         jLabel6 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
@@ -983,6 +987,11 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton7);
+        jToolBar1.add(jSeparator11);
+
+        jSlider1.setToolTipText("Execution speed");
+        jSlider1.setFocusable(false);
+        jToolBar1.add(jSlider1);
         jToolBar1.add(jSeparator8);
         jToolBar1.add(jLabel6);
 
@@ -1013,7 +1022,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
+                .addComponent(jSplitPane1))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1053,6 +1062,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
+    private javax.swing.JToolBar.Separator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1061,6 +1071,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JSlider jSlider1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JToolBar jToolBar1;
