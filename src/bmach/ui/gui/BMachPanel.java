@@ -201,7 +201,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
     private class ShowHelpAction extends JDialogSpawningAction {
 
         public ShowHelpAction(JComponent dialogParent) {
-            super(dialogParent, "Help Contents..", "Help", new Integer(KeyEvent.VK_F1), KeyStroke.getKeyStroke(KeyEvent.VK_F1, ActionEvent.CTRL_MASK), "/bmach/ui/gui/resources/help.png");
+            super(dialogParent, "Help Contents..", "Help", new Integer(KeyEvent.VK_F1), KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), "/bmach/ui/gui/resources/help.png");
         }
 
         public void actionPerformed(ActionEvent e) {
