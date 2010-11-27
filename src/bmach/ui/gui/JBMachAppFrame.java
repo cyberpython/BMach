@@ -78,9 +78,9 @@ public class JBMachAppFrame extends javax.swing.JFrame{
         jMenu4.add(bMachPanel1.getShowHelpAction());
         jMenu4.addSeparator();
         jMenu4.add(bMachPanel1.getShowAboutDialogAction());
-        this.pack();
-        //this.setPreferredSize(new Dimension(850, 650));
-        //this.setSize(this.getPreferredSize());
+        //this.pack();
+        this.setPreferredSize(new Dimension(900, 600));
+        this.setSize(this.getPreferredSize());
         this.setTitle("BMach - "+bMachPanel1.getCurrentDocTitle());
 
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
