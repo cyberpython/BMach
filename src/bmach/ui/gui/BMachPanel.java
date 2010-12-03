@@ -568,8 +568,8 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
                 String instBits = ((IBitPattern) data).toBinaryString().substring(8);
                 String instAddress = ((IBitPattern) data).toBinaryString().substring(0, 8);
 
-                jByteContainerPanel2.setAddress(BitPatternUtils.binaryToHexString(instAddress));
-                jByteContainerPanel2.setValue(BitPatternUtils.binaryToHexString(instBits));
+                jByteContainerPanel2.setAddress("0x"+BitPatternUtils.toHexString(Integer.parseInt(instAddress, 2), 2).toUpperCase());
+                jByteContainerPanel2.setValue("0x"+BitPatternUtils.toHexString(Integer.parseInt(instBits, 2), 4).toUpperCase());
 
                 String inst = ProcessorUtils.instructionToString(instBits);
                 jLabel7.setText("<html>" + inst + "</html>");
