@@ -45,13 +45,13 @@ public class ProcessorUtils {
 
         if (opCode.equals("0001") || opCode.equals("0010") || opCode.equals("0011") || opCode.equals("1011")) {
             if (opCode.equals("0001")) {
-                return "LOAD register "+BitPatternUtils.binaryToHexString(register)+" from memory address "+BitPatternUtils.binaryToHexString(byte2);
+                return "LOAD register "+BitPatternUtils.binaryToHexString(register, 1)+" from memory address "+BitPatternUtils.binaryToHexString(byte2, 2);
             } else if (opCode.equals("0010")) {// 0x2 : LOAD bit pattern
-                return "LOAD register "+BitPatternUtils.binaryToHexString(register)+" with the value "+BitPatternUtils.binaryToHexString(byte2);
+                return "LOAD register "+BitPatternUtils.binaryToHexString(register, 1)+" with the value "+BitPatternUtils.binaryToHexString(byte2, 2);
             } else if (opCode.equals("0011")) {// 0x3 : STORE to memory
-                return "STORE from register "+BitPatternUtils.binaryToHexString(register)+" to memory address "+BitPatternUtils.binaryToHexString(byte2);
+                return "STORE from register "+BitPatternUtils.binaryToHexString(register, 1)+" to memory address "+BitPatternUtils.binaryToHexString(byte2, 2);
             } else {// 0xB : JUMP to target if address contents == 0
-                return "JUMP to memory address "+BitPatternUtils.binaryToHexString(byte2)+" if register "+BitPatternUtils.binaryToHexString(register)+" contents equal zero";
+                return "JUMP to memory address "+BitPatternUtils.binaryToHexString(byte2, 2)+" if register "+BitPatternUtils.binaryToHexString(register, 1)+" contents equal zero";
             }
 
         } else {
@@ -59,20 +59,20 @@ public class ProcessorUtils {
             String op2 = byte2.substring(4, 8);
 
             if (opCode.equals("0100")) {// 0x4 : MOVE from R to S
-                return "MOVE from register "+BitPatternUtils.binaryToHexString(op1)+" to register "+BitPatternUtils.binaryToHexString(op2);
+                return "MOVE from register "+BitPatternUtils.binaryToHexString(op1, 1)+" to register "+BitPatternUtils.binaryToHexString(op2, 1);
             } else if (opCode.equals("0101")) {// 0x5 : ADD S and T ans save to R
-                return "ADD the values in registers "+BitPatternUtils.binaryToHexString(op1)+" and "+BitPatternUtils.binaryToHexString(op2)+" and leave result in "+BitPatternUtils.binaryToHexString(register);
+                return "ADD the values in registers "+BitPatternUtils.binaryToHexString(op1, 1)+" and "+BitPatternUtils.binaryToHexString(op2, 1)+" and leave result in "+BitPatternUtils.binaryToHexString(register, 1);
             } else if (opCode.equals("0110")) {// 0x6 : ADD floats in S and T ans save to R
-                return "ADD as floating-point numbers values in registers "+BitPatternUtils.binaryToHexString(op1)+" and "+BitPatternUtils.binaryToHexString(op2)+" and leave result in "+BitPatternUtils.binaryToHexString(register);
+                return "ADD as floating-point numbers values in registers "+BitPatternUtils.binaryToHexString(op1)+" and "+BitPatternUtils.binaryToHexString(op2, 1)+" and leave result in "+BitPatternUtils.binaryToHexString(register, 1);
             } else if (opCode.equals("0111")) {// 0x7 : OR S and T ans save to R
-                return "OR the values in registers "+BitPatternUtils.binaryToHexString(op1)+" and "+BitPatternUtils.binaryToHexString(op2)+" and leave result in "+BitPatternUtils.binaryToHexString(register);
+                return "OR the values in registers "+BitPatternUtils.binaryToHexString(op1, 1)+" and "+BitPatternUtils.binaryToHexString(op2, 1)+" and leave result in "+BitPatternUtils.binaryToHexString(register, 1);
             } else if (opCode.equals("1000")) {// 0x8 : AND S and T ans save to R
-                return "AND the values in registers "+BitPatternUtils.binaryToHexString(op1)+" and "+BitPatternUtils.binaryToHexString(op2)+" and leave result in "+BitPatternUtils.binaryToHexString(register);
+                return "AND the values in registers "+BitPatternUtils.binaryToHexString(op1, 1)+" and "+BitPatternUtils.binaryToHexString(op2, 1)+" and leave result in "+BitPatternUtils.binaryToHexString(register, 1);
             } else if (opCode.equals("1001")) {// 0x9 : XOR S and T ans save to R
-                return "XOR the values in registers "+BitPatternUtils.binaryToHexString(op1)+" and "+BitPatternUtils.binaryToHexString(op2)+" and leave result in "+BitPatternUtils.binaryToHexString(register);
+                return "XOR the values in registers "+BitPatternUtils.binaryToHexString(op1, 1)+" and "+BitPatternUtils.binaryToHexString(op2, 1)+" and leave result in "+BitPatternUtils.binaryToHexString(register, 1);
             } else if (opCode.equals("1010")) {// 0xA : ROTATE R right X times
                 int times = Integer.parseInt(op2, 2);
-                return "ROTATE the value in register "+BitPatternUtils.binaryToHexString(register)+" "+times+" times";
+                return "ROTATE the value in register "+BitPatternUtils.binaryToHexString(register, 1)+" "+times+" times";
             } else if (opCode.equals("1100")) {// 0xC : HALT
                 return "HALT";
             } else {

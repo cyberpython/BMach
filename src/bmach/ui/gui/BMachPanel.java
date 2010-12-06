@@ -37,6 +37,7 @@ import bmach.ui.gui.components.JByteContainerPanel;
 import bmach.ui.gui.integration.FileDrop;
 import documentcontainer.DocumentContainer;
 import documentcontainer.DocumentIOManager;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -54,6 +55,7 @@ import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -62,6 +64,7 @@ import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.text.JTextComponent;
 import jsyntaxpane.syntaxkits.BMachSyntaxKit;
 import util.binary.bitpattern.BitPatternOverflowException;
 import util.binary.bitpattern.BitPatternUtils;
@@ -222,7 +225,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         }
     }
 
-    private class CopyLogAction extends BMachAction {
+    /*private class CopyLogAction extends BMachAction {
 
         public CopyLogAction() {
             super("Copy", "Copy", null, null, "/bmach/ui/gui/resources/copy-to-clipboard.png");
@@ -231,7 +234,53 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         public void actionPerformed(ActionEvent e) {
             jTextArea2.copy();
         }
-    }// </editor-fold>
+    }*/
+
+
+    private abstract class AbstractClipBoardAction extends BMachAction {
+        protected JTextComponent jTextComponent;
+
+        public AbstractClipBoardAction(JTextComponent jTextComponent, String name, String tooltip, Integer mnemonicKey, KeyStroke accelKey, String smallIconURL) {
+            super(name, tooltip, mnemonicKey, accelKey, smallIconURL);
+            this.jTextComponent = jTextComponent;
+        }
+
+
+    }
+    
+    private class CutToClipBoardAction extends AbstractClipBoardAction {
+
+        public CutToClipBoardAction(JTextComponent jTextComponent) {
+            super(jTextComponent, "Cut", "Cut", null, null, "/bmach/ui/gui/resources/cut-to-clipboard.png");
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            jTextComponent.cut();
+        }
+    }
+
+    private class CopyToClipBoardAction extends AbstractClipBoardAction {
+
+        public CopyToClipBoardAction(JTextComponent jTextComponent) {
+            super(jTextComponent, "Copy", "Copy", null, null, "/bmach/ui/gui/resources/copy-to-clipboard.png");
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            jTextComponent.copy();
+        }
+    }
+
+    private class PasteFromClipBoardAction extends AbstractClipBoardAction {
+
+        public PasteFromClipBoardAction(JTextComponent jTextComponent) {
+            super(jTextComponent, "Paste", "Paste", null, null, "/bmach/ui/gui/resources/paste-from-clipboard.png");
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            jTextComponent.paste();
+        }
+    }
+    // </editor-fold>
 
     private IMachine machine;
     private Thread machineThread;
@@ -356,8 +405,14 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         kit.addToolBarActions(jEditorPane1, jToolBar1, 4);
 
         JPopupMenu logPopUp = new JPopupMenu();
-        logPopUp.add(new CopyLogAction());
+        logPopUp.add(new CopyToClipBoardAction(jTextArea2));
         jTextArea2.setComponentPopupMenu(logPopUp);
+
+        JPopupMenu addressFieldPopUp = new JPopupMenu();
+        addressFieldPopUp.add(new CutToClipBoardAction(jAddressTextField1));
+        addressFieldPopUp.add(new CopyToClipBoardAction(jAddressTextField1));
+        addressFieldPopUp.add(new PasteFromClipBoardAction(jAddressTextField1));
+        jAddressTextField1.setComponentPopupMenu(addressFieldPopUp);
     }
 
     public Action getNewAction() {
@@ -645,6 +700,14 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         BMachHelpDialog.getDialog(frame, false).setVisible(true);
     }
 
+    private void goToAddress(String address) {
+        if(address.matches("0x[0-9a-fA-F]{2}")){
+            int index = Integer.parseInt(address.substring(2), 16);
+            jMemoryList1.setSelectedIndex(index);
+            jMemoryList1.ensureIndexIsVisible(index);
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -667,9 +730,9 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         jSlider1 = new javax.swing.JSlider();
         jSeparator8 = new javax.swing.JToolBar.Separator();
         jLabel6 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
-        jSeparator10 = new javax.swing.JToolBar.Separator();
         jButton9 = new javax.swing.JButton();
+        jSeparator10 = new javax.swing.JToolBar.Separator();
+        jButton8 = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -685,6 +748,10 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         jPanel12 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jMemoryList1 = new bmach.ui.gui.components.JMemoryList();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jAddressTextField1 = new bmach.ui.gui.components.JAddressTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -762,20 +829,20 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         jToolBar1.add(jSeparator8);
         jToolBar1.add(jLabel6);
 
-        jButton8.setText("Help");
-        jButton8.setToolTipText("Help");
-        jButton8.setFocusable(false);
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton8);
-        jToolBar1.add(jSeparator10);
-
         jButton9.setText("About");
         jButton9.setToolTipText("About...");
         jButton9.setFocusable(false);
         jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton9);
+        jToolBar1.add(jSeparator10);
+
+        jButton8.setText("Help");
+        jButton8.setToolTipText("Help");
+        jButton8.setFocusable(false);
+        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton8);
 
         jSplitPane1.setDividerLocation(350);
         jSplitPane1.setResizeWeight(1.0);
@@ -836,7 +903,44 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+        );
+
+        jLabel8.setFont(jLabel8.getFont().deriveFont((jLabel8.getFont().getStyle() & ~java.awt.Font.ITALIC) & ~java.awt.Font.BOLD, 12));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setLabelFor(jAddressTextField1);
+        jLabel8.setText("Go to address:");
+
+        jButton4.setText("go");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jAddressTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jAddressTextField1KeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jAddressTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel8)
+                .addComponent(jButton4)
+                .addComponent(jAddressTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -845,6 +949,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
             .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
@@ -854,7 +959,9 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel3.setFont(jLabel3.getFont().deriveFont((jLabel3.getFont().getStyle() & ~java.awt.Font.ITALIC) | java.awt.Font.BOLD, 14));
@@ -1054,10 +1161,22 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        goToAddress(jAddressTextField1.getText());
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jAddressTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jAddressTextField1KeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            goToAddress(jAddressTextField1.getText());
+        }
+    }//GEN-LAST:event_jAddressTextField1KeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private bmach.ui.gui.components.JAddressTextField jAddressTextField1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -1073,6 +1192,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private bmach.ui.gui.components.JMemoryList jMemoryList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1080,6 +1200,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

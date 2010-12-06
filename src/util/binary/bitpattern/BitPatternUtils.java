@@ -35,7 +35,15 @@ public class BitPatternUtils {
     }
 
     public static String binaryToHexString(String binaryValue) {
-        return "0x"+Integer.toHexString(Integer.parseInt(binaryValue,2));
+        return "0x"+Integer.toHexString(Integer.parseInt(binaryValue,2)).toUpperCase();
+    }
+
+    public static String binaryToHexString(String binaryValue, int minLength) {
+        StringBuilder sb = new StringBuilder(Integer.toHexString(Integer.parseInt(binaryValue,2)).toUpperCase());
+        while (sb.length() < minLength) {
+            sb.insert(0, '0');
+        }
+        return "0x"+sb.toString();
     }
 
     public static String toBinaryString(int value, int minLength) {
@@ -47,7 +55,7 @@ public class BitPatternUtils {
     }
 
     public static String toHexString(int value, int minLength) {
-        StringBuilder sb = new StringBuilder(Integer.toHexString(value));
+        StringBuilder sb = new StringBuilder(Integer.toHexString(value).toUpperCase());
         while (sb.length() < minLength) {
             sb.insert(0, '0');
         }
