@@ -2,6 +2,10 @@
 
 A Brookshear Machine implementation in Java.
 
+##Screenshots
+<a href="http://img522.imageshack.us/img522/6213/screenshotex.png">![Screenshot1][screenshot1]</a>
+[screenshot1]: http://img522.imageshack.us/img522/6213/screenshotex.th.png  "Screenshot of BMach running."
+
 ##License
 
 Copyright (c) 2010 Georgios Migdos <cyberpython@gmail.com>
@@ -34,10 +38,5 @@ To run the application you must have a JRE (6.x+) installed. Then you can give:
     java -jar dist/bmach.jar
 
 Or simply double click on dist/bmach.jar
-    
-##Screenshots
-<a href="http://img522.imageshack.us/img522/6213/screenshotex.png">![Screenshot1][screenshot1]</a>
-[screenshot1]: http://img522.imageshack.us/img522/6213/screenshotex.th.png  "Screenshot of BMach running."
-
 
 
