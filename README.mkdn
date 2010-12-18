@@ -3,8 +3,8 @@
 A Brookshear Machine implementation in Java.
 
 ##Screenshots
-<a href="http://img522.imageshack.us/img522/6213/screenshotex.png">![Screenshot1][screenshot1]</a>
-[screenshot1]: http://img522.imageshack.us/img522/6213/screenshotex.th.png  "Screenshot of BMach running."
+<a href="BMach/raw/master/screenshots/screenshot.png">![Screenshot1][screenshot1]</a>
+[screenshot1]: BMach/raw/master/screenshots/screenshot_th.png  "Screenshot of BMach running."
 
 ##License
 
