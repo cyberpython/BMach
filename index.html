@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Bmach by cyberpython</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Bmach</h1>
+        <p class="header">A Brookshear Machine implementation in Java</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/cyberpython/BMach/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/cyberpython/BMach/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/cyberpython/BMach">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/cyberpython">cyberpython</a></p>
+
+
+      </header>
+      <section>
+        <h1>BMach</h1>
+
+<h2>A Brookshear Machine in Java</h2>
+
+<h3>Description</h3>
+
+<p>BMach is a simple Java application that allows the user to edit, save and execute programs written in the simple machine language defined in <a href="http://www.mscs.mu.edu/%7Eglennb/">Glenn Brookshear’s</a> <a href="http://www.amazon.com/Computer-Science-Overview-Glenn-Brookshear/dp/0321524039">“Computer Science An Overview”</a>. It supports syntax-highlighting and viewing the registers, memory cells and program counter values during program execution.</p>
+
+<h3>Download</h3>
+
+<p><a href="https://github.com/cyberpython/BMach/downloads">Click here to go to the downloads page.</a></p>
+
+<h3>Screenshots</h3>
+
+<p><img src="http://dl.dropbox.com/u/599926/images/screenshot-bmach.png" alt="BMach running on Linux"></p>
+
+<h3>Requirements</h3>
+
+<p>You need to have a system with JRE 6u10+.</p>
+
+<h3>Usage</h3>
+
+<p>BMach is used like any plain text editor.
+After users have finished editing their code, they can click on the execute / execute step-by-step button.
+All instructions defined in “Computer Science An Overview” are supported.
+These can be entered in either binary or hexadecimal form.
+e.g.:</p>
+
+<pre><code>Book            BMach            Form
+20a1            0x20a1           hexadecimal
+2AFF            0x2AFF           hexadecimal
+5201            0101001000000001 binary
+</code></pre>
+
+<p>Blank lines and whitespace before and after instructions are ignored.
+Single-line comments are denoted by two consecutive slashes (<code>//</code>) and extend to the end of the line.</p>
+
+<h3>Examples</h3>
+
+<h4>Addition</h4>
+
+<pre><code>// Calculates the sum of 1 and 2 and
+// stores it in register 2
+0010000000000001 // alternative form: 0x2001
+0010000100000010 // alternative form: 0x2102
+0101001000000001 // alternative form: 0x5201
+1100000000000000 // alternative form: 0xC000
+</code></pre>
+
+<h4>Calculating the sum of numbers 1 to 10</h4>
+
+<pre><code>// Calculates the sum of numbers 1 - 10
+0x200A // LOAD register 0 with 0x0A (10d)
+0x21FF // LOAD register 1 with 0xFF (-1d)
+0x2200 // LOAD register 2 with 0x00 (0d)
+0x2301 // LOAD register 3 with 0x01 (1d)
+0x2401 // LOAD register 4 with 0x01 (1d)
+0x2500 // LOAD register 5 with 0x00 (0d)
+0xB016 // JUMP to HALT if register 0 is zero
+0x5001 // register 0 = register 0 + register 1
+0x5223 // register 2 = register 2 + register 3
+0x5334 // register 3 = register 3 + register 4
+0xB50C // JUMP to 0x0C
+0xC000 // HALT
+</code></pre>
+
+<h4>Overflow</h4>
+
+<pre><code>// Attempts to calculate
+// 127 + 1 = 128
+// and causes overflow error
+0x207F // 2's complement: 127
+0x2101 // 2's complement: 1
+0x5201 // causes overflow: 128
+0xc000 // HALT
+</code></pre>
+
+<h3>About</h3>
+
+<p>Full source code is available at <a href="https://github.com/cyberpython/bmach">this GitHub repository</a> under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.</p>
+
+<p>All icons are part of the <a href="http://www.famfamfam.com/lab/icons/silk/">“Silk” iconset</a> by <a href="http://www.famfamfam.com/about/">Mark James</a>, except for the application icon which has been created from scratch with <a href="http://inkscape.org/">Inkscape</a>.</p>
+
+<p><a href="http://code.google.com/p/jsyntaxpane/">jSyntaxPane</a>, an open-source JEditorKit that adds support for custom syntax-highlighting to JEditorPane, is used.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+		
+  </body>
+</html>
