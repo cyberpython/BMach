@@ -50,8 +50,8 @@ public class ProcessorUtils {
                 return "LOAD register "+BitPatternUtils.binaryToHexString(register, 1)+" with the value "+BitPatternUtils.binaryToHexString(byte2, 2);
             } else if (opCode.equals("0011")) {// 0x3 : STORE to memory
                 return "STORE from register "+BitPatternUtils.binaryToHexString(register, 1)+" to memory address "+BitPatternUtils.binaryToHexString(byte2, 2);
-            } else {// 0xB : JUMP to target if address contents == 0
-                return "JUMP to memory address "+BitPatternUtils.binaryToHexString(byte2, 2)+" if register "+BitPatternUtils.binaryToHexString(register, 1)+" contents equal zero";
+            } else {// 0xB : JUMP to target if address contents == contents of register 0
+                return "JUMP to memory address "+BitPatternUtils.binaryToHexString(byte2, 2)+" if register "+BitPatternUtils.binaryToHexString(register, 1)+" contents are equal to those of register 0x0";
             }
 
         } else {

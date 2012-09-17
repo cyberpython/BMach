@@ -49,6 +49,7 @@ public class Processor implements IProcessor {
     private HashMap<IRegisterAddress, IRegister> registers;
     private List<IObserver> observers;
     private ByteBitPattern zero;
+    private IRegisterAddress zeroRegisterAddress;
     private boolean hasReachedEnd;
 
     public Processor() {
@@ -58,6 +59,7 @@ public class Processor implements IProcessor {
         this.observers = new ArrayList<IObserver>();
         this.hasReachedEnd = false;
         this.zero = new ByteBitPattern();
+        this.zeroRegisterAddress = new RegisterAddress("0x" + Integer.toHexString(0));
         try{
             zero.setValue(0);
         }catch(Exception e){
@@ -126,7 +128,7 @@ public class Processor implements IProcessor {
                 IRegisterAddress src = new RegisterAddress(register);
                 IMemoryAddress dest = new MemoryAddress(byte2.toBinaryString());
                 store(src, dest);
-            } else {// 0xB : JUMP to target if address contents == 0
+            } else {// 0xB : JUMP to target if address contents == contents at register 0
                 IRegisterAddress address = new RegisterAddress(register);
                 IMemoryAddress target = new MemoryAddress(byte2.toBinaryString());
                 jump(address, target);
@@ -282,8 +284,9 @@ public class Processor implements IProcessor {
     }
 
     public void jump(IRegisterAddress address, IMemoryAddress target) {
-        IBitPattern condition = registers.get(address).getContent();
-        if (zero.compareTo(condition) == 0) {
+        IBitPattern op1 = registers.get(address).getContent();
+        IBitPattern op2 = registers.get(zeroRegisterAddress).getContent();
+        if (op2.compareTo(op1) == 0) {
             programCounter.set(target);
         } else {
             programCounter.inc();
