@@ -29,6 +29,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
+import util.binary.bitpattern.BitPattern;
+import util.binary.bitpattern.BitPatternUtils;
+import util.binary.bitpattern.ByteBitPattern;
+import util.binary.bitpattern.IBitPattern;
 import util.patterns.observer.IObserver;
 
 /**
@@ -40,13 +44,22 @@ public class JByteContainerPanel extends JPanel implements IObserver, ListCellRe
     private JAddressPanel addressPanel;
     private JValuePanel valuePanel;
     private Color transparentColor;
+    private int bitLength;
 
     public JByteContainerPanel() {
+        this.bitLength = 8;
         initComponents();
         this.transparentColor = new Color(0,0,0,0);
         this.setBackground(Color.white);
         this.setOpaque(false);
+    }
 
+    public JByteContainerPanel(int bitLength) {
+        this.bitLength = bitLength;
+        initComponents();
+        this.transparentColor = new Color(0,0,0,0);
+        this.setBackground(Color.white);
+        this.setOpaque(false);
     }
 
     private void initComponents() {
@@ -57,6 +70,7 @@ public class JByteContainerPanel extends JPanel implements IObserver, ListCellRe
         this.add(addressPanel);
         this.add(valuePanel);
         this.setBorder(BorderFactory.createLineBorder(transparentColor, 5));
+        this.setToolTipText(getTooltipForHexValue(valuePanel.getValue()));
     }
 
     public void setAddress(String address){
@@ -70,6 +84,7 @@ public class JByteContainerPanel extends JPanel implements IObserver, ListCellRe
 
     public void setValue(String value){
         valuePanel.setValue(value);
+        this.setToolTipText(getTooltipForHexValue(valuePanel.getValue()));
     }
 
     public String getValue(){
@@ -89,6 +104,7 @@ public class JByteContainerPanel extends JPanel implements IObserver, ListCellRe
             addressPanel.setAddress(" PC ");
             valuePanel.setValue(((ProgramCounterNotificationData) notificationData).getAddress().toHexString());
         }
+        this.setToolTipText(getTooltipForHexValue(valuePanel.getValue()));
         this.repaint();
     }
 
@@ -97,12 +113,6 @@ public class JByteContainerPanel extends JPanel implements IObserver, ListCellRe
             IMemoryCell cell = (IMemoryCell)value ;
             addressPanel.setAddress(cell.getAddress().toHexString());
             valuePanel.setValue(cell.getContent().toHexString());
-
-            /*int selIndex = list.getSelectedIndex();
-            if(selIndex % 2 == 0){
-                int[] indices = {selIndex, selIndex+1};
-                list.setSelectedIndices(indices);
-            }*/
 
             if(isSelected){
                 this.setBackground(list.getSelectionBackground());
@@ -116,6 +126,36 @@ public class JByteContainerPanel extends JPanel implements IObserver, ListCellRe
             addressPanel.setAddress(register.getAddress().toHexString());
             valuePanel.setValue(register.getContent().toHexString());
         }
+        this.setToolTipText(getTooltipForHexValue(valuePanel.getValue()));
         return this;
+    }
+
+    private String getTooltipForHexValue(String hexValue){
+        StringBuilder tooltip = new StringBuilder("<html><ul>");
+
+        String binary = BitPatternUtils.hexToBinaryString(hexValue, bitLength);
+        IBitPattern bitPattern = new BitPattern(bitLength);
+        bitPattern.setValue(binary);
+
+        tooltip.append("<li><b>Decimal (int): </b>");
+        tooltip.append(bitPattern.intValue());
+        tooltip.append("</li>");
+
+        if(bitLength==8){
+            tooltip.append("<li><b>Decimal (float): </b>");
+            tooltip.append(BitPatternUtils.byteToFloatValue(bitPattern));
+            tooltip.append("</li>");
+        }
+
+        tooltip.append("<li><b>Hex: </b>");
+        tooltip.append(hexValue);
+        tooltip.append("</li>");
+
+        tooltip.append("<li><b>Binary: </b>");
+        tooltip.append(binary);
+        tooltip.append("</li>");
+
+        tooltip.append("</ul></html>");
+        return tooltip.toString();
     }
 }

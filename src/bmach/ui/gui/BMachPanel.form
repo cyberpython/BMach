@@ -160,7 +160,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="550" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="553" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -204,10 +204,10 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" alignment="0" pref="538" max="32767" attributes="1"/>
-                          <Component id="jSeparator1" alignment="0" pref="538" max="32767" attributes="1"/>
+                          <Component id="jLabel1" alignment="0" pref="541" max="32767" attributes="1"/>
+                          <Component id="jSeparator1" alignment="0" pref="541" max="32767" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel6" pref="526" max="32767" attributes="0"/>
+                              <Component id="jPanel6" pref="529" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -298,8 +298,8 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" alignment="0" pref="260" max="32767" attributes="1"/>
-                              <Component id="jSeparator2" alignment="0" pref="260" max="32767" attributes="1"/>
+                              <Component id="jLabel2" alignment="0" pref="263" max="32767" attributes="1"/>
+                              <Component id="jSeparator2" alignment="0" pref="263" max="32767" attributes="1"/>
                               <Component id="jPanel15" alignment="0" max="32767" attributes="0"/>
                               <Component id="jPanel12" alignment="1" max="32767" attributes="0"/>
                           </Group>
@@ -344,12 +344,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" alignment="0" pref="256" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" pref="259" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" alignment="0" pref="184" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" pref="185" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -386,7 +386,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jAddressTextField1" pref="137" max="32767" attributes="0"/>
+                                      <Component id="jAddressTextField1" pref="141" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -529,6 +529,9 @@
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                           <SubComponents>
                             <Component class="bmach.ui.gui.components.JByteContainerPanel" name="jByteContainerPanel2">
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new bmach.ui.gui.components.JByteContainerPanel(16)"/>
+                              </AuxValues>
                             </Component>
                           </SubComponents>
                         </Container>
