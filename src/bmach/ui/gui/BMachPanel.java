@@ -629,6 +629,7 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
                 String inst = ProcessorUtils.instructionToString(instBits);
                 jLabel7.setText("<html>" + inst + "</html>");
                 jTextArea2.append(inst + "\n");
+                jTextArea2.setCaretPosition(jTextArea2.getDocument().getLength());
 
                 if (machine.getStepByStep()) {
                     executeStepByStepAction.setEnabled(true);
