@@ -37,29 +37,14 @@ import bmach.ui.gui.components.JByteContainerPanel;
 import bmach.ui.gui.integration.FileDrop;
 import documentcontainer.DocumentContainer;
 import documentcontainer.DocumentIOManager;
-import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.List;
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -362,6 +347,8 @@ public class BMachPanel extends javax.swing.JPanel implements IObserver, Documen
         BMachSyntaxKit.initKit();
         jEditorPane1.setContentType("text/bmach");
         jEditorPane1.getDocument().addDocumentListener(this);
+        Font defaultFont = UIManager.getDefaults().getFont("EditorPane.font");
+        jEditorPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, defaultFont==null?12:defaultFont.getSize()));
     }
 
     private void initToolbarsAndMenus() {
